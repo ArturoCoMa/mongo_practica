@@ -23,9 +23,9 @@ public class Main {
         double precio;
         Scanner tec = new Scanner(System.in);
 
-        try(MongoClient mongoClient = new MongoClient("localhost:5432")){
-            MongoDatabase mongoDatabase = mongoClient.getDatabase("Juegoteca");
-            MongoCollection mc = mongoDatabase.getCollection("Juegos");
+        try(MongoClient mongoClient = new MongoClient("localhost")){
+            MongoDatabase mongoDatabase = mongoClient.getDatabase("Juegoteca2");
+            MongoCollection mc = mongoDatabase.getCollection("Juegos2");
 
             //insert one
             Juego juego = new Juego(1,"InputAdventure", "Artur", 59.99);
@@ -66,7 +66,7 @@ public class Main {
 
 
             //cosulta de varios (juegos con un precio entre 20 y 50)
-            FindIterable<Document> iterable = mc.find((ClientSession) and(gte("precio",20)),lte("precio",50));
+            FindIterable<Document> iterable = mc.find(and(gte("precio",20),lte("precio",50)));
             MongoCursor cursor = iterable.iterator();
             while (cursor.hasNext()){
                 System.out.println(cursor.next().toString());
